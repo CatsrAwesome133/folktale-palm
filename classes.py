@@ -1,3 +1,5 @@
+import random
+
 class Decision:
 
     def __init__(self,options:dict,text_tags:dict={
@@ -71,38 +73,50 @@ class Decision:
         # id_all_caps is true because mine are, in fact, all caps
 
         # Gets first choice & initializes result to be returned later
-        choice = input(self.text_tags["Choose"])
-        result = ""
+        # Does the random thing if options have a 4th value (weights)
+        manual = False
+        try:
+            chances = []
+            for key in self.options:
+                chances.append(self.options[key][3])
+            
+            new = random.choices(list(self.options.keys()), weights=chances, k=1)
+            result = self.options[new[0]]
+        except IndexError:
+            manual = True
 
-        # Validation for the choice
-        valid = False
-        while not valid:
-            if self.id_all_caps:
-                choice = choice.upper()
-            try:
+        # Does the normal thing if manual is true
+        if manual:
+            choice = input(self.text_tags["Choose"])
+            result = ""
 
-                # Inner try/except for if the user inputs a number
+            # Validation for the choice
+            valid = False
+            while not valid:
+                if self.id_all_caps:
+                    choice = choice.upper()
                 try:
-                    choice = self.numbers[choice]
-                    print("Choice: "+choice)
-                except KeyError:
-                    pass
 
-                # Sets result if choice is valid
-                result = self.options[choice]
-                valid = True
+                    # Inner try/except for if the user inputs a number
+                    try:
+                        choice = self.numbers[choice]
+                        print("Choice: "+choice)
+                    except KeyError:
+                        pass
 
-            # Except says "nope" if the choice is invalid
-            except (IndexError,KeyError):
-                print("Um, you can't do that. Try again?")
-                choice = input(self.text_tags["ChooseFail"])
+                    # Sets result if choice is valid
+                    result = self.options[choice]
+                    valid = True
+
+                # Except says "nope" if the choice is invalid
+                except (IndexError,KeyError):
+                    print("Um, you can't do that. Try again?")
+                    choice = input(self.text_tags["ChooseFail"])
 
         # Displays the narration text and returns the jump id
         print("\n"+self.text_tags["Bar"]+"\n")
         print(self.text_tags["SysPre"] + self.text_tags["SysPost"] + result[1])
         return result[2]
-
-
 
 if __name__ == '__main__':
     # Initiaizes every decision to make
@@ -110,11 +124,15 @@ if __name__ == '__main__':
     second = Decision({"A": ["choose a", "No!!!", "A"],
                        "B": ["choose b", "yea!", "C"]
                        })
+    third = Decision({"A": ["choose a", "A!", "D", 0.5],
+                           "B": ["choose b", "B!", "D", 0.5]
+                           })
     
     # Dict of all options with IDs
     all_options = {
         "A": new,
-        "B": second
+        "B": second,
+        "C": third
     }
 
     # Game loop
@@ -125,6 +143,6 @@ if __name__ == '__main__':
         all_options[next].show()
         print()
         next = all_options[next].make()
-        if next == "C":
+        if next == "D":
             playing = False
     
