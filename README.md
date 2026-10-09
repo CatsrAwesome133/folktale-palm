@@ -1,6 +1,9 @@
 # Palm's no good, very bad time in probably-but-not-explicitly Soul Sanctum
 Folktale text adventure based off of a wip hollow knight fic (and some ocs!)
 
+## Summary, in Ao3 style
+You're Palm, a little moth who got kidnapped while looking for his missing friend. Can you escape, and can you get your friend back?
+
 ## To play:
 1. Run `main.py`
 2. Read the text, and type in your choice when presented!
@@ -10,7 +13,7 @@ The choices look like this:
 ·Input1/Input2 > The choice you're making
 ```
 
-## How does this work?
+# How does this work?
 With OOP, duh.
 
 But seriously, the game itself is just a while loop and a bunch of decision data. Almost all the logic is handled by the `Decision` class. I accidentally (?) made it very picky on inputs, oops.
@@ -85,6 +88,34 @@ while playing:
 
 The logic quickly becomes confusing, so I suggest you draw diagrams!
 <br/><small>this is why my game is so linear</small>
+
+## Other Features ...of the class
+There are a few...?
+
+**1. You can format the sent messages per decision (insead of having `·` and `>`)** <br/>
+Pass a dictionary into `text_tags` while initializing (p.s. you need *every* key):
+```py
+{
+    "SysPre":       "Prefix for choice and narration messages",
+    "SysPost":      "Postfix for choice messages; gets sent to the front for narration",
+    "Choose":       "First choice input",
+    "ChooseFail":   "Subsequent choice inputs if the first fails",
+    "Bar":          "Seperation bar for readbility",
+}
+```
+
+**2. You can choose to only show the ID option or numerical option when showing choices** <br/>
+Pass your option into `selectors` when calling show()
+```py
+"All":      #default, shows both
+"ID":       #shows only the item ID from the dictionary
+"Index":    #shows only the automatically generated numerical index
+```
+
+**3. You can disable the new line before choices are displayed.** Because. <br/>
+Pass `False` into `newline` when calling show()
+
+**4. You can un-case-sensitive the choice input by making your IDs be in ALLCAPS.** If your IDs aren't in all caps, please pass `False` into `id_all_caps` when initializing.
 
 ## Weaknesses
 Variable-based logic is pretty much impossible currently. I... didn't implement this because I didn't really need it. I *might* add it in the future though!

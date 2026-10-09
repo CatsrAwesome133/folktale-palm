@@ -1,12 +1,12 @@
 class Decision:
-    
+
     def __init__(self,options:dict,text_tags:dict={
         "SysPre": "·",
         "SysPost": " > ",
         "Choose": "  I choose··> ",
         "ChooseFail": "          ··> ",
         "Bar": "   · ··>    -    <·· ·   ",
-    }):
+    }, id_all_caps=True):
         # Options should be a dictionary in this format: {index: [choice text, narration text, jump id]}
         # Text tags are here for formatting
         # The dict, if passed, should contain the following keys: "SysPre", "SysPost", "Choose", "ChooseFail", and "Bar"
@@ -15,6 +15,7 @@ class Decision:
         self.options = options
         self.numbers = {}
         self.text_tags = text_tags
+        self.id_all_caps = id_all_caps
 
         # Tries a bit to make sure that the values in options are valid
         if type(self.options) != dict:
@@ -53,10 +54,10 @@ class Decision:
 
         # Displaying options
         for option in self.options:
-            if selectors == "ID":
+            if selectors.lower() == "ID":
                 print(f"{self.text_tags['SysPre']}{option}{self.text_tags['SysPost']}" +
                     self.options[option][0])
-            elif selectors == "Index":
+            elif selectors.lower() == "Index":
                 print(f"{self.text_tags['SysPre']}{counter}{self.text_tags['SysPost']}" +
                     self.options[option][0])
             else:
@@ -67,6 +68,7 @@ class Decision:
 
     def make(self):
         # in hindsight, 'make' was a terrible name
+        # id_all_caps is true because mine are, in fact, all caps
 
         # Gets first choice & initializes result to be returned later
         choice = input(self.text_tags["Choose"])
@@ -75,6 +77,8 @@ class Decision:
         # Validation for the choice
         valid = False
         while not valid:
+            if self.id_all_caps:
+                choice = choice.upper()
             try:
 
                 # Inner try/except for if the user inputs a number
