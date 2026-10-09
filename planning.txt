@@ -1,0 +1,58 @@
+plot: get the hell out of ss
+easter eggs: norman, shaman?
+
+For every decision block,
+    take the chosen
+    output the chosen output
+    jump to the next block
+
+option formatting:
+ A/1 > Text
+ B/2 > Text
+
+
+
+
+
+
+You wake up with a terrible headache.
+
+> look around
+
+You're trapped in a jar. The glass is thick and hard to break, so you don't know if you'll  be getting out any time soon.
+The room you're in is very blue and very bright. The floor is littered with shrunken corpses.
+[A]
+
+
+#A
+a1> say "well this sucks"
+"well this sucks."
+Maybe there's something you can do to avoid that fate...
+[B]
+
+a2> panic
+You start hyperventillating. There's no way you'll meet the same fate as those corpses!
+[B]
+
+a3> is there really no way out?
+You tap at the glass. It makes a nice sound. Ding! But that doesn't help you.
+[C]
+
+
+#B
+b1> is there really no way out?
+You tap at the glass. It makes a nice sound. Ding! But that doesn't help you.
+[C]
+
+
+#C
+c1 > tap again
+You tap again. This time, glowing white runes appear on the inside of the glass.
+Ha!
+[D]
+
+c2 > frown at it
+(random text)
+You frown at the glass. Stupid glass.
+[C]
+
