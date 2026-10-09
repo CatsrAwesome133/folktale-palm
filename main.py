@@ -22,9 +22,17 @@ class Decision:
 
     def make(self):
         choice = input("   ··> ")
+        result = ""
         valid = False
         while not valid:
-            pass
+            try:
+                result = self.options[choice]
+                valid = True
+            except (IndexError,KeyError):
+                print("Um, you can't do that. Try again?")
+                choice = input("   ··> ")
+        print(result[1])
+        return result[2]
 
 if __name__ == '__main__':
     new = Decision({"A": ["choose a","A!!", "B"]})
@@ -35,3 +43,6 @@ if __name__ == '__main__':
         "A": new,
         "B": second
     }
+
+    new.show()
+    new.make()
