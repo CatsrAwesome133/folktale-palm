@@ -18,6 +18,10 @@ With OOP, duh.
 
 But seriously, the game itself is just a while loop and a bunch of decision data. Almost all the logic is handled by the `Decision` class. I accidentally (?) made it very picky on inputs, oops.
 
+As a bonus, you can just... write a script, in script format (...ish), run a compiler/translator, and import the output! I made one ehhe
+[
+Find it here!](https://github.com/CatsrAwesome133/text-adventure-maker)
+
 **Here's an overview:**
 
 The `Decision` class has three functions:
